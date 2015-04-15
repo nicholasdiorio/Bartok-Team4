@@ -8,7 +8,6 @@ public enum FSState {
 	active,
 	post
 }
-
 // FloatingScore can move itself on screen following a Bézier curve
 public class FloatingScore : MonoBehaviour {
 	public FSState state = FSState.idle;
@@ -19,7 +18,8 @@ public class FloatingScore : MonoBehaviour {
 	public int score {
 		get {
 			return(_score);
-		}set {
+		}
+		set {
 			_score = value;
 			scoreString = Utils.AddCommasToNumber(_score);
 			GetComponent<GUIText>().text = scoreString;
@@ -32,7 +32,6 @@ public class FloatingScore : MonoBehaviour {
 	public string easingCurve = Easing.InOut; // Uses Easing in Utils.cs
 	// The GameObject that will receive the SendMessage when this is done moving
 	public GameObject reportFinishTo = null;
-
 	// Set up the FloatingScore and movement
 	// Note the use of parameter defaults for eTimeS & eTimeD
 	public void Init(List<Vector3> ePts, float eTimeS = 0, float eTimeD = 1) {
@@ -41,19 +40,18 @@ public class FloatingScore : MonoBehaviour {
 			// ...then just go there.
 			transform.position = ePts[0];
 			return;
-		}// If eTimeS is the default, just start at the current time
-				if (eTimeS == 0) eTimeS = Time.time;
+		}
+		// If eTimeS is the default, just start at the current time
+		if (eTimeS == 0) eTimeS = Time.time;
 		timeStart = eTimeS;
 		timeDuration = eTimeD;
 		state = FSState.pre; // Set it to the pre state, ready to start moving
 	}
-
 	public void FSCallback(FloatingScore fs) {
 		// When this callback is called by SendMessage,
 		// add the score from the calling FloatingScore
 		score += fs.score;
 	}
-
 	// Update is called once per frame
 	void Update () {
 		// If this is not moving, just return
@@ -85,8 +83,9 @@ public class FloatingScore : MonoBehaviour {
 			} else {
 				// 0<=u<1, which means that this is active and moving
 				state = FSState.active;
-			}// Use Bezier curve to move this to the right point
-					Vector3 pos = Utils.Bezier(uC, bezierPts);
+			}
+			// Use Bezier curve to move this to the right point
+			Vector3 pos = Utils.Bezier(uC, bezierPts);
 			transform.position = pos;
 			if (fontSizes != null && fontSizes.Count>0) {
 				// If fontSizes has values in it

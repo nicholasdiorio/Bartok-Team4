@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using System. Collections;
+using System.Collections;
 using System.Collections.Generic;
-
 // The Scoreboard class manages showing the score to the player
 public class Scoreboard : MonoBehaviour {
 	public static Scoreboard S; // The singleton for Scoreboard
@@ -14,7 +13,8 @@ public class Scoreboard : MonoBehaviour {
 	public int score {
 		get {
 			return(_score);
-		}set {
+		}
+		set {
 			_score = value;
 			scoreString = Utils.AddCommasToNumber(_score);
 		}
@@ -23,7 +23,8 @@ public class Scoreboard : MonoBehaviour {
 	public string scoreString {
 		get {
 			return(_scoreString);
-		}set {
+		}
+		set {
 			_scoreString = value;
 			GetComponent<GUIText>().text = _scoreString;
 		}
@@ -32,13 +33,12 @@ public class Scoreboard : MonoBehaviour {
 		S = this;
 	}
 	// When called by SendMessage, this adds the fs.score to this.score
-		public void FSCallback(FloatingScore fs) {
-			score += fs.score;
-		}
-
+	public void FSCallback(FloatingScore fs) {
+		score += fs.score;
+	}
 	// This will Instantiate a new FloatingScore GameObject and initialize it.
-			// It also returns a pointer to the FloatingScore created so that the
-			// calling function can do more with it (like set fontSizes, etc.)
+	// It also returns a pointer to the FloatingScore created so that the
+	// calling function can do more with it (like set fontSizes, etc.)
 	public FloatingScore CreateFloatingScore(int amt, List<Vector3> pts) {
 		GameObject go = Instantiate(prefabFloatingScore) as GameObject;
 		FloatingScore fs = go.GetComponent<FloatingScore>();

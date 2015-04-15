@@ -1,11 +1,21 @@
 ﻿using UnityEngine;
-using System. Collections;
+using System.Collections;
 using System.Collections.Generic;
+
 // The SlotDef class is not a subclass of MonoBehaviour, so it doesn't need a
 // separate C# file.
-
 [System.Serializable] // This makes SlotDefs visible in the Unity Inspector pane
-
+/*public class SlotDef {
+	public float x;
+	public float y;
+	public bool faceUp=false;
+	public string layerName="Default";
+	public int layerID = 0;
+	public int id;
+	public List<int> hiddenBy = new List<int>();
+	public string type="slot";
+	public Vector2 stagger;
+}*/
 public class Layout : MonoBehaviour {
 	public PT_XMLReader xmlr; // Just like Deck, this has a PT_XMLReader
 	public PT_XMLHashtable xml; // This variable is for easier xml access
@@ -39,7 +49,7 @@ public class Layout : MonoBehaviour {
 				tSD.type = "slot";
 			}
 			// Various attributes are parsed into numerical values
-					tSD.x = float.Parse( slotsX[i].att("x") );
+			tSD.x = float.Parse( slotsX[i].att("x") );
 			tSD.y = float.Parse( slotsX[i].att("y") );
 			tSD.layerID = int.Parse( slotsX[i].att("layer") );
 			// This converts the number of the layerID into a text layerName
@@ -59,7 +69,7 @@ public class Layout : MonoBehaviour {
 						tSD.hiddenBy.Add ( int.Parse(s) );
 					}
 				}
-					slotDefs.Add(tSD);
+				slotDefs.Add(tSD);
 				break;
 			case "drawpile":
 				tSD.stagger.x = float.Parse( slotsX[i].att("xstagger") );
@@ -70,21 +80,5 @@ public class Layout : MonoBehaviour {
 				break;
 			}
 		}
-	}
-
-
-			                         
-
-		                         
-		
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 }
